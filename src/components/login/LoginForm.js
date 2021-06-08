@@ -1,59 +1,75 @@
-import React from 'react';
+import React from "react";
+import { useState } from "react";
+import styled from "styled-components";
 
-class LoginForm extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            username: '',
-            password: '',
-        };
+const LoginForm = () => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
-        this.handleInputChange = this.handleInputChange.bind(this);
-        this.handleFormSubmit = this.handleFormSubmit.bind(this);
+  
+
+  return (
+    <form
+      onSubmit={
+        ((e) => e.preventDefault(), console.log("you sumbitted the form"))
+      }
+    >
+
+    <Wrapper >
+        <div>
+          <label htmlFor="username"></label>
+          <Input
+            id="username"
+            name="username"
+            type="text"
+            placeholder="Username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+        </div>
+        <div>
+          <label htmlFor="password"></label>
+          <Input
+            id="password"
+            name="password"
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+        <div>
+          <Button type="submit">LOGIN</Button>
+        </div>
+        <div>
+            <p>Don't have an account? <a href="/register">Register</a>.</p>
+        </div>
+        </Wrapper>
+    </form>
+
+  );
+};
+
+const Wrapper = styled.div`
+    margin-top: 5rem;
+    background-color: #fff;
+    padding: 45px 150px;
+    box-Shadow: 2px 2px 10px gray;
+
+    > div {
+        padding: 10px;
     }
+`
 
-    handleInputChange(event) {
-        this.setState({
-            [event.target.name]: event.target.value
-        });
-    }
+const Button = styled.button`
+    border: none;
+    background-color: lightgrey;
+    padding: 5px 15px;
+    `
 
-    handleFormSubmit(event) {
-        event.preventDefault();
-        
-    }
-
-    render() {
-        return (
-            <form onSubmit={this.handleFormSubmit}>
-                <div>
-                    <label htmlFor="username">Username</label>
-                    <input 
-                        id="username"
-                        name="username"
-                        type="text" 
-                        placeholder="Username"  
-                        value={this.state.username}
-                        onChange={this.handleInputChange}
-                    />
-                </div>
-                <div>
-                    <label htmlFor="password">Password</label>
-                    <input 
-                        id="password"
-                        name="password"
-                        type="password" 
-                        placeholder="Password"
-                        value={this.state.password}
-                        onChange={this.handleInputChange}
-                    />
-                </div>
-                <div>
-                    <button type="submit">Login</button>
-                </div>
-            </form>
-        )
-    }
-}
+const Input = styled.input`
+    border-width: 0 0 1px;
+    width: 100%
+`
 
 export default LoginForm;
